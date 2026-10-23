@@ -1,0 +1,20 @@
+import { WAFFLES } from "./waffles";
+import { LAMB } from "./lamb";
+import { CROISSANT } from "./croissant";
+import { CHICKEN } from "./chicken";
+import { PIZZA } from "./pizza";
+import { CAKE } from "./cake";
+import { BURGER } from "./burger";
+import { LOGO } from "./logo";
+import { BURGERTRAY } from "./burgertray";
+import { SANDWICH } from "./sandwich";
+import { COCKTAILS } from "./cocktails";
+import { SOFTSERVE } from "./softserve";
+import { DESSERTS } from "./desserts";
+import { TERRACE } from "./terrace";
+import { EXTERIOR } from "./exterior";
+import { WINDOW } from "./window";
+import { CHEERS } from "./cheers";
+import { CHOCCAKE } from "./choccake";
+
+export { LOGO, WAFFLES, LAMB, CROISSANT, CHICKEN, PIZZA, CAKE, BURGER, BURGERTRAY, SANDWICH, COCKTAILS, SOFTSERVE, DESSERTS, TERRACE, EXTERIOR, WINDOW, CHEERS, CHOCCAKE };
