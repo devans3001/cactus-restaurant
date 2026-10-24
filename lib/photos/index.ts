@@ -6,6 +6,7 @@ import { PIZZA } from "./pizza";
 import { CAKE } from "./cake";
 import { BURGER } from "./burger";
 import { LOGO } from "./logo";
+import { GELATO } from "./gelato";
 import { BURGERTRAY } from "./burgertray";
 import { SANDWICH } from "./sandwich";
 import { COCKTAILS } from "./cocktails";
@@ -17,4 +18,4 @@ import { WINDOW } from "./window";
 import { CHEERS } from "./cheers";
 import { CHOCCAKE } from "./choccake";
 
-export { LOGO, WAFFLES, LAMB, CROISSANT, CHICKEN, PIZZA, CAKE, BURGER, BURGERTRAY, SANDWICH, COCKTAILS, SOFTSERVE, DESSERTS, TERRACE, EXTERIOR, WINDOW, CHEERS, CHOCCAKE };
+export { LOGO, GELATO, WAFFLES, LAMB, CROISSANT, CHICKEN, PIZZA, CAKE, BURGER, BURGERTRAY, SANDWICH, COCKTAILS, SOFTSERVE, DESSERTS, TERRACE, EXTERIOR, WINDOW, CHEERS, CHOCCAKE };

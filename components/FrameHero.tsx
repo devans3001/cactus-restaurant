@@ -90,7 +90,7 @@ export default function FrameHero() {
   }, []);
 
   return (
-    <section id="top" ref={wrapRef} className="relative h-[300vh]">
+    <section id="top" ref={wrapRef} className="relative h-[230vh]">
       <div className="sticky top-0 h-screen overflow-hidden bg-cocoa">
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-cocoa/80 via-transparent to-cocoa/30" />
@@ -148,12 +148,17 @@ export default function FrameHero() {
           </div>
         </div>
 
-        {/* scroll hint + progress */}
+        {/* scroll cue — an animated pill nobody can miss */}
         <div
           ref={hintRef}
-          className="absolute right-5 bottom-5 sm:right-8 font-mono text-[11px] tracking-[0.25em] text-cream/70 uppercase transition-opacity duration-500"
+          className="absolute inset-x-0 bottom-2.5 flex items-center justify-center gap-3 transition-opacity duration-500"
         >
-          Scroll — the chops are steaming ↓
+          <span className="flex h-9 w-[22px] justify-center rounded-full border-2 border-cream/70 pt-1.5">
+            <span className="animate-scrollcue h-2 w-1 rounded-full bg-clay-2" />
+          </span>
+          <span className="font-mono text-[10px] font-semibold tracking-[0.35em] text-cream/85 uppercase [text-shadow:_0_1px_10px_rgb(0_0_0/60%)]">
+            Scroll — the feast continues
+          </span>
         </div>
         <div className="absolute inset-x-0 bottom-0 h-[3px] bg-cream/15">
           <div ref={barRef} className="h-full w-full origin-left bg-clay-2" style={{ transform: "scaleX(0)" }} />

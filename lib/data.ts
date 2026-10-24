@@ -1,5 +1,7 @@
 import {
   BURGER,
+  GELATO,
+  LAMB,
   BURGERTRAY,
   CAKE,
   CHICKEN,
@@ -183,14 +185,14 @@ export const chapters = [
 
 /* The greatest hits — the names Lagos orders by. */
 export const hits = [
-  { name: "Lamb chops", tag: "off the grill, still steaming" },
-  { name: "The club sandwich", tag: "the one reviewers name" },
-  { name: "Fried chicken platter", tag: "built for the whole table" },
-  { name: "Pepperoni pizza", tag: "worth crossing the Island for" },
-  { name: "Jollof rice", tag: "done properly" },
-  { name: "Grilled prawns", tag: "from the water, to the fire" },
-  { name: "Red velvet", tag: "the bakery's signature" },
-  { name: "Gelato", tag: "the legend — ask anyone" },
+  { name: "Lamb chops", tag: "off the grill, still steaming", img: LAMB },
+  { name: "The club sandwich", tag: "the one reviewers name", img: SANDWICH },
+  { name: "Fried chicken platter", tag: "built for the whole table", img: CHICKEN },
+  { name: "Pepperoni pizza", tag: "worth crossing the Island for", img: PIZZA },
+  { name: "Jollof rice", tag: "done properly", img: null },
+  { name: "Grilled prawns", tag: "from the water, to the fire", img: null },
+  { name: "Red velvet", tag: "the bakery's signature", img: DESSERTS },
+  { name: "Gelato", tag: "the legend — ask anyone", img: GELATO },
 ];
 
 export const bandPhotos = [CHICKEN, COCKTAILS, CAKE];

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { bandPhotos, business, chapters, hits, reviews, visitPhotos, walk } from "@/lib/data";
-import { LOGO, SANDWICH } from "@/lib/photos";
+import { LOGO } from "@/lib/photos";
 import { Reveal } from "./ui";
 
 /* --------------------------------- NAV -------------------------------- */
@@ -28,8 +28,8 @@ export function Nav() {
           }`}
           aria-label="Cactus Restaurant — home"
         >
-          <img src={LOGO} alt="Cactus logo" className="h-11 w-11 object-contain drop-shadow" />
-          <span className={`font-display text-xl font-extrabold tracking-[0.14em] ${scrolled ? "text-cocoa" : "text-cream"}`}>
+          <img src={LOGO} alt="Cactus logo" className="h-9 w-9 object-contain drop-shadow sm:h-11 sm:w-11" />
+          <span className={`font-display text-lg font-extrabold tracking-[0.14em] sm:text-xl ${scrolled ? "text-cocoa" : "text-cream"}`}>
             CACTUS
           </span>
         </a>
@@ -44,9 +44,20 @@ export function Nav() {
           <a href="#voices" className="hover:text-clay-2">REVIEWS</a>
           <a href="#visit" className="hover:text-clay-2">FIND US</a>
         </nav>
+        {/* mobile: an animated call icon — the full pill returns on sm+ */}
         <a
           href={business.phoneHref}
-          className="rounded-full bg-clay-2 px-5 py-2.5 text-sm font-bold text-cocoa shadow-lg shadow-cocoa/30 transition-transform hover:scale-[1.04]"
+          aria-label={`Call to reserve — ${business.phoneDisplay}`}
+          className="relative grid h-11 w-11 place-items-center rounded-full bg-clay-2 text-cocoa shadow-lg shadow-cocoa/30 sm:hidden"
+        >
+          <span className="absolute inset-0 animate-ping rounded-full bg-clay-2 opacity-40" />
+          <svg viewBox="0 0 24 24" fill="currentColor" className="relative h-5 w-5" aria-hidden>
+            <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.4 11.4 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02l-2.2 2.2Z" />
+          </svg>
+        </a>
+        <a
+          href={business.phoneHref}
+          className="hidden rounded-full bg-clay-2 px-5 py-2.5 text-sm font-bold text-cocoa shadow-lg shadow-cocoa/30 transition-transform hover:scale-[1.04] sm:inline-block"
         >
           Reserve — {business.phoneDisplay}
         </a>
@@ -182,17 +193,57 @@ export function Chapters() {
 }
 
 /* --------------------------------- HITS ------------------------------- */
-/* The breather chapter: bone, hairlines, and dish names at poster size —
-   with one plate breaking the grid at an angle. */
+/* The breather chapter: bone, hairlines, dish names at poster size —
+   and the plates join in. Evans picked treatment C ("RANDOM POPS",
+   Oct 24, 2026): while the section is on screen, dishes pop up from
+   underneath random rows like courses landing on the table, stay a
+   moment, and clear away. Works identically on mobile, where most
+   visitors are. The tilted header photo was removed at his instruction
+   so nothing competes with the pops. */
 export function Hits() {
+  const [pops, setPops] = useState<number[]>([]);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const withImg = hits.map((h, i) => (h.img ? i : -1)).filter((i) => i >= 0);
+    let timer: ReturnType<typeof setInterval> | undefined;
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+    const launch = () => {
+      const pick = withImg[Math.floor(Math.random() * withImg.length)];
+      setPops((prev) => [...prev.slice(-1), pick]);
+      timeouts.push(setTimeout(() => setPops((prev) => prev.filter((x) => x !== pick)), 2600));
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !timer) {
+            if (reduced) {
+              setPops([withImg[0]]);
+            } else {
+              launch();
+              timer = setInterval(launch, 1700);
+            }
+          }
+          if (!e.isIntersecting && timer) {
+            clearInterval(timer);
+            timer = undefined;
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    if (sectionRef.current) io.observe(sectionRef.current);
+    return () => {
+      io.disconnect();
+      if (timer) clearInterval(timer);
+      timeouts.forEach(clearTimeout);
+    };
+  }, []);
+
   return (
-    <section id="hits" className="relative overflow-hidden bg-cream py-24 text-cocoa sm:py-32">
+    <section id="hits" ref={sectionRef} className="relative overflow-hidden bg-cream py-24 text-cocoa sm:py-32">
       <div className="relative max-w-[110rem] mx-auto px-5 sm:px-8">
-        <img
-          src={SANDWICH}
-          alt="The Cactus club sandwich with fries"
-          className="absolute -top-4 right-4 hidden w-64 rotate-[5deg] shadow-2xl shadow-cocoa/30 lg:block xl:w-80"
-        />
         <p className="font-mono text-[11px] font-semibold tracking-[0.35em] text-clay sm:text-xs">
           THE GREATEST HITS
         </p>
@@ -201,17 +252,26 @@ export function Hits() {
         </h2>
 
         <div className="mt-16">
-          {hits.map((h) => (
+          {hits.map((h, i) => (
             <div
               key={h.name}
-              className="group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-t border-cocoa/15 py-5 transition-all duration-300 last:border-b hover:pl-3"
+              className="group relative flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-t border-cocoa/15 py-5 last:border-b"
             >
               <span className="font-display text-4xl font-bold tracking-tight uppercase transition-colors duration-300 group-hover:text-clay sm:text-6xl">
                 {h.name}
               </span>
-              <span className="font-mono text-[11px] tracking-[0.2em] text-cocoa/50 uppercase sm:text-xs">
-                {h.tag}
-              </span>
+              <span className="font-mono text-[11px] tracking-[0.2em] text-cocoa/50 uppercase sm:text-xs">{h.tag}</span>
+              {h.img && (
+                <img
+                  src={h.img}
+                  alt={h.name}
+                  className={`pointer-events-none absolute -top-14 right-3 z-10 aspect-[4/5] w-24 object-cover shadow-2xl shadow-cocoa/40 transition-all duration-700 [transition-timing-function:cubic-bezier(.34,1.8,.64,1)] sm:right-24 sm:w-36 ${
+                    pops.includes(i)
+                      ? `translate-y-0 scale-100 opacity-100 ${i % 2 === 0 ? "rotate-[-4deg]" : "rotate-[3deg]"}`
+                      : "translate-y-16 scale-50 opacity-0"
+                  }`}
+                />
+              )}
             </div>
           ))}
         </div>

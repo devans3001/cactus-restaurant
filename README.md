@@ -20,3 +20,10 @@ Stack: Next.js 15 · React 19 · Tailwind v4 · GSAP (reveals) · hand-rolled sc
 ## v2 — rebuilt under the captivating-design skill (Oct 23, 2026)
 
 v1 was rejected as generic (cream + serif + food in equal cards — the current AI cliché). v2 follows `~/workspace/custom-skills/captivating_web_design/SKILL.md`: reference anchors Dishoom (world-building) + Pizzeria Beddia (oversized process photography); direction **maximalist editorial**; spine **"THE LONG TABLE — one waterfront table, and the food never stops coming."** System: deep pine as structure, bone as breather, one saffron accent; Bricolage Grotesque + IBM Plex Mono (zero serif); grain skin over everything. Structure: frame-scrub hero with monumental type over the plate → edge-to-edge photo band with giant marquee type → full-bleed day chapters (the photos ARE the sections) → the Hits (poster-size dish names, one plate breaking the grid) → dish walk → a review quote at poster size → terrace + spec sheet. Passed the skill's audit loop at 390/1440 widths (mobile proof-line overflow + eyebrow contrast found and fixed).
+
+## v2.1 — Evans's review round (Oct 24, 2026)
+
+- Mobile header compacted; the Reserve pill becomes an animated call icon on phones (full pill kept on desktop).
+- Hero runway shortened ~25% (300vh → 230vh) + an animated scroll cue ("SCROLL — THE FEAST CONTINUES") that hides once scrolling starts.
+- Greatest Hits locked to his pick, treatment **C — random pops**: dishes pop up from random rows while the section is on screen (mobile included), each staying ~2.6s; the tilted header sandwich was removed so nothing competes. Jollof and grilled prawns stay type-only — Cactus has no public photos of them in the harvest.
+- **Vercel Analytics** component installed (`@vercel/analytics`, in `app/layout.tsx`). To switch it on: Vercel dashboard → this project → **Analytics** → Enable Web Analytics. Visitor counts appear there as traffic arrives.

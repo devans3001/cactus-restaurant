@@ -65,3 +65,22 @@ body {
   -webkit-text-stroke: 2px rgba(247, 241, 227, 0.6);
   color: transparent;
 }
+
+/* Scroll cue dot */
+@keyframes scrollcue {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+.animate-scrollcue {
+  animation: scrollcue 1.8s ease-in-out infinite;
+}
+
+/* Slow zoom for the slant strips */
+@keyframes slowzoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.12); }
+}
+.animate-slowzoom {
+  animation: slowzoom 14s ease-in-out infinite alternate;
+}
